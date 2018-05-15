@@ -7,12 +7,19 @@ var vCharacters = [ {id:"ow", name:"Obi-wan Kenobi", life:"120", hp:"8"},
                     {id:"dm", name:"Darth Maul", life:"180", hp:"25"}];
 
 var vMyPick="";
-var vMyPickLive="";
-var vMyPickHp="";
+var vMyPickName="";
+var vMyPickLive=0;
+var vMyPickHp=0;
 
 var vCurrentDefender="";
-var vCurrentDefenderLive="";
-var vCurrentDefenderHp="";
+var vCurrentDefenderName="";
+var vCurrentDefenderLive=0;
+var vCurrentDefenderHp=0;
+
+var vMyPickAttackHp=0;
+var vDefenderAttackHp=0;
+
+var vVictories = 0;
 $("#Restart").prop('disabled', true);
 
 $("#ow").on("click", function(){
@@ -38,14 +45,18 @@ $("#ow").on("click", function(){
     }else if(vStage==1){
         if(this.id!=vMyPick){
             $("#ow").detach().appendTo('#TheDefender');
+            $("#ow").css('background-color', 'black');
+            $("#ow").css('color', 'white');
             for(var i=0;i<vCharacters.length; i++){
                 if(vCharacters[i].id==this.id){
                     vCurrentDefender=vCharacters[i].id;
-                    vCurrentDefenderLive=vCharacters[i].life;
-                    vCurrentDefenderHp=vCharacters[i].hp;
+                    vCurrentDefenderName=vCharacters[i].name;
+                    vCurrentDefenderLive=parseInt(vCharacters[i].life);
+                    vCurrentDefenderHp=parseInt(vCharacters[i].hp);
                 };
             };
             $("#AttackButton").removeClass("disabled");
+            $("#AttackButton").prop('disabled', false);
             vStage=2;
         };
     };
@@ -73,14 +84,18 @@ $("#ls").on("click", function(){
     }else if(vStage==1){
         if(this.id!=vMyPick){
             $("#ls").detach().appendTo('#TheDefender');
+            $("#ls").css('background-color', 'black');
+            $("#ls").css('color', 'white');
             for(var i=0;i<vCharacters.length; i++){
                 if(vCharacters[i].id==this.id){
                     vCurrentDefender=vCharacters[i].id;
-                    vCurrentDefenderLive=vCharacters[i].life;
-                    vCurrentDefenderLive=vCharacters[i].life;
+                    vCurrentDefenderName=vCharacters[i].name;
+                    vCurrentDefenderLive=parseInt(vCharacters[i].life);
+                    vCurrentDefenderHp=parseInt(vCharacters[i].hp);
                 };
             };
             $("#AttackButton").removeClass("disabled");
+            $("#AttackButton").prop('disabled', false);
             vStage=2;
         };
     };
@@ -109,14 +124,18 @@ $("#ds").on("click", function(){
     }else if(vStage==1){
         if(this.id!=vMyPick){
             $("#ds").detach().appendTo('#TheDefender');
+            $("#ds").css('background-color', 'black');
+            $("#ds").css('color', 'white');
             for(var i=0;i<vCharacters.length; i++){
                 if(vCharacters[i].id==this.id){
                     vCurrentDefender=vCharacters[i].id;
-                    vCurrentDefenderLive=vCharacters[i].life;
-                    vCurrentDefenderLive=vCharacters[i].life;
+                    vCurrentDefenderName=vCharacters[i].name;
+                    vCurrentDefenderLive=parseInt(vCharacters[i].life);
+                    vCurrentDefenderHp=parseInt(vCharacters[i].hp);
                 };
             };
             $("#AttackButton").removeClass("disabled");
+            $("#AttackButton").prop('disabled', false);
             vStage=2;
         };
     };
@@ -145,14 +164,18 @@ $("#dm").on("click", function(){
     }else if(vStage==1){
         if(this.id!=vMyPick){
             $("#dm").detach().appendTo('#TheDefender');
+            $("#dm").css('background-color', 'black');
+            $("#dm").css('color', 'white');
             for(var i=0;i<vCharacters.length; i++){
                 if(vCharacters[i].id==this.id){
                     vCurrentDefender=vCharacters[i].id;
-                    vCurrentDefenderLive=vCharacters[i].life;
-                    vCurrentDefenderLive=vCharacters[i].life;
+                    vCurrentDefenderName=vCharacters[i].name;
+                    vCurrentDefenderLive=parseInt(vCharacters[i].life);
+                    vCurrentDefenderHp=parseInt(vCharacters[i].hp);
                 };
             };
             $("#AttackButton").removeClass("disabled");
+            $("#AttackButton").prop('disabled', false);
             vStage=2;
         };
     };
@@ -163,7 +186,9 @@ $(".Character").on("click", function(event){
         for(var i=0;i<vCharacters.length; i++){
             if(vCharacters[i].id==this.id){
                 vMyPick=vCharacters[i].id;
-                vMyPickLive=vCharacters[i].life;
+                vMyPickName==vCharacters[i].name;
+                vMyPickLive=parseInt(vCharacters[i].life);
+                vMyPickHp=parseInt(vCharacters[i].hp);
                 vStage=1;
             };
         };
@@ -172,7 +197,42 @@ $(".Character").on("click", function(event){
     };
 });
 
-$("#AttackButton").on("click", function(){
+$("#MyPick").on("click", function(event){
+    //console.log(event);
+    $("#Results").html("");
+
+    vMyPickAttackHp += Math.floor(Math.random() * vMyPickHp);
+    console.log(vMyPickAttackHp);
+    vDefenderAttackHp = vCurrentDefenderHp;
+    console.log(vDefenderAttackHp);
+
+    vMyPickLive -= vDefenderAttackHp;
+    console.log();
+    vCurrentDefenderLive -= vMyPickAttackHp;
+    console.log();
+
+    $("#Results").html("You attacked " + vCurrentDefenderName + " for " + vMyPickAttackHp + " damage <p> " + vCurrentDefenderName + " attacked you back for " + vDefenderAttackHp + " damage.");
+
+
+    $("#"+vMyPick)[0].children[2].textContent=vMyPickLive;
+    $("#"+vCurrentDefender)[0].children[2].textContent=vCurrentDefenderLive;
+
+    if(vMyPickLive<0){
+        $("#Results").html("You been defeated. GAME OVER!!!");
+        $("#AttackButton").prop('disabled', true);
+    };
+    if(vCurrentDefenderLive<0){
+        $("#Results").html("You have defeated " + vCurrentDefenderName + ", you can choose to fight another enemy.");
+        $("#AttackButton").prop('disabled', true);
+        $("#"+vCurrentDefender).detach();
+        vStage=1;
+        vVictories++;
+    };
+
+    if(vVictories==3){
+        $("#Results").html("You won!!!!. GAME OVER!!!");
+        $("#AttackButton").prop('disabled', true);
+    };
 
 });
 
