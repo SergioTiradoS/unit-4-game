@@ -21,7 +21,14 @@ img{
     width: auto;
 }
 
+.buttonInMiddle{
+    /*Position type and coordenates.*/
+    top: 500px;
+}
+
 .Character{
+
+
     /*Box Model - Margin*/
 
 
