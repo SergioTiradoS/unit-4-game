@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+    background-image: url(../images/star_wars_xwing.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1{
+    font-size: 50px;
+    text-align: center;
+}
+
+h3{
+    font-size: 25px;
+}
+
+img{
+    height: 100px;
+    width: auto;
+}
+
+.Character{
+    /*Box Model - Margin*/
+
+
+    /*Box Model - Border*/
+
+    border-style: solid;
+    border-width: 2px;
+    border-color: green;
+
+    /*Box Model - Padding*/
+
+
+
+    /*Div Figure properties*/
+    background-color: rgb(255, 255, 255);
+
+
+
+    /*Font*/
+
+    text-align: center;
+    float: left;
+
+        /*Position type and coordenates.*/
+        /*position: fixed;
+        top: 0;
+        left: 0;
+    
+        width: 100%;*/
+        /*Box Model - Margin*/
+        /*margin: 0;*/
+    
+        /*Box Model - Border*/
+    /*
+        border-style: solid;
+        border-left-width: 0px;
+        border-right-width: 0px;
+        border-top-width: 0px;
+        border-bottom-width: 5px;
+        border-color: transparent transparent #cccccc transparent;
+    
+    */
+        /*Box Model - Padding*/
+    /*
+        padding-top: 60px;
+        padding-bottom: 60px;*/
+        /*Box Model - Content*/
+    
+        /*Div Figure properties*/
+     /*   background-color: rgb(255, 255, 255);
+        display: block;*/
+    
+        
+        /*Font*/
+     /*   font-family: Georgia, 'Times New Roman', Times, serif;
+        color: white;
+        text-align: left;*/
+
+}
